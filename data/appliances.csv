@@ -1,0 +1,31 @@
+appliance_code,name,watts,motor_load
+APP-01,LED bulb 9W,9,false
+APP-02,Tube light LED,20,false
+APP-03,Ceiling fan,75,true
+APP-04,Table fan,55,true
+APP-05,LED TV 32in,60,false
+APP-06,LED TV 55in,120,false
+APP-07,Wi-Fi router,12,false
+APP-08,Laptop,65,false
+APP-09,Desktop PC,200,false
+APP-10,Refrigerator 190L,150,true
+APP-11,Refrigerator 300L,250,true
+APP-12,Mixer grinder,750,true
+APP-13,Water pump 0.5HP,375,true
+APP-14,Water pump 1HP,750,true
+APP-15,Washing machine,500,true
+APP-16,Microwave oven,1200,false
+APP-17,Induction cooktop,1800,false
+APP-18,Electric iron,1000,false
+APP-19,Geyser 15L,2000,false
+APP-20,AC 1 ton,1200,true
+APP-21,AC 1.5 ton,1800,true
+APP-22,Air cooler,180,true
+APP-23,Exhaust fan,40,true
+APP-24,CCTV DVR,30,false
+APP-25,Set-top box,20,false
+APP-26,Phone charger,10,false
+APP-27,Inkjet printer,50,false
+APP-28,Sewing machine,100,true
+APP-29,Aquarium pump,15,true
+APP-30,Hair dryer,1200,false

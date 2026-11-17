@@ -1,0 +1,10 @@
+package com.dealer.quotation.io;
+import com.dealer.quotation.model.*;
+import java.io.*; import java.nio.file.*; import java.time.LocalDate; import java.util.*;
+public class CsvReader {
+    private static List<String[]> rows(Path p) throws IOException { List<String[]> out=new ArrayList<>(); try(BufferedReader br=Files.newBufferedReader(p)){String line; boolean first=true; while((line=br.readLine())!=null){if(first){first=false;continue;} if(!line.isBlank()) out.add(line.split(",",-1));}} return out; }
+    public static Map<String,Appliance> appliances(Path p)throws IOException { Map<String,Appliance> m=new LinkedHashMap<>(); for(String[] r:rows(p)) m.put(r[0].trim(),new Appliance(r[0].trim(),r[1].trim(),Integer.parseInt(r[2].trim()),Boolean.parseBoolean(r[3].trim()))); return m; }
+    public record PriceData(Map<Integer,InverterProduct> inverters,Map<Integer,BatteryProduct> batteries){}
+    public static PriceData prices(Path p)throws IOException { Map<Integer,InverterProduct> i=new LinkedHashMap<>(); Map<Integer,BatteryProduct>b=new LinkedHashMap<>(); for(String[]r:rows(p)){int rating=Integer.parseInt(r[2].trim());double price=Double.parseDouble(r[4].trim());if(r[1].trim().equalsIgnoreCase("INVERTER"))i.put(rating,new InverterProduct(rating,price));else if(r[1].trim().equalsIgnoreCase("BATTERY"))b.put(rating,new BatteryProduct(rating,price));}return new PriceData(i,b); }
+    public static Map<String,CustomerRequest> requests(Path p,Path items)throws IOException { Map<String,List<RequestLineItem>> grouped=new LinkedHashMap<>(); for(String[]r:rows(items)){grouped.computeIfAbsent(r[0].trim(),k->new ArrayList<>()).add(new RequestLineItem(r[1].trim(),Integer.parseInt(r[2].trim()),Boolean.parseBoolean(r[3].trim())));} Map<String,CustomerRequest> out=new LinkedHashMap<>(); for(String[]r:rows(p)){String id=r[0].trim();out.put(id,new CustomerRequest(id,LocalDate.parse(r[1].trim()),r[2].trim(),r[3].trim(),Integer.parseInt(r[4].trim()),grouped.getOrDefault(id,List.of())));}return out; }
+}
